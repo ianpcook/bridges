@@ -63,6 +63,10 @@ target/
 *.db
 *.rdb
 
+# Raw datasets
+*.xlsx
+*.csv
+
 # Pycharm
 .idea
 
