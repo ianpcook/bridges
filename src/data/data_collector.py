@@ -14,21 +14,21 @@ def path_collector(base_path):
     return paths
 
 
-def xls_collector(part):
+def xls_collector(element):
     full_df = pd.DataFrame()
     paths = path_collector(base_path)
-    file_list = [path for path in paths if part in path.split('/')[-1].split(' ')[0]]
+    file_list = [path for path in paths if element in path.split('/')[-1].split(' ')[0]]
     i = 0
-    if part == 'Culvert':
-        part_ref = 'CULV'
+    if element == 'Culvert':
+        element_ref = 'CULV'
     else:
-        part_ref = part
+        element_ref = element
     for file in file_list:
         i += 1
         try:
             temp_df = pd.DataFrame()
             temp_df = pd.read_excel(file,
-                                    sheet_name=part_ref,
+                                    sheet_name=element_ref,
                                     skiprows=0,
                                     low_memory=True,
                                     header=1,
@@ -48,16 +48,17 @@ def xls_collector(part):
     return full_df
 
 
-def get_df(base_path, part):
-    if os.path.exists(base_path+'/'+part+'_full.csv'):
-        df = pd.read_csv(base_path+'/'+part+'_full.csv')
+def get_df(base_path, element):
+    if os.path.exists(base_path +'/' + element + '_full.csv'):
+        df = pd.read_csv(base_path +'/' + element + '_full.csv')
     else:
-        df = xls_collector(part=part)
+        df = xls_collector(element=element)
     df = df.loc[:, ~df.columns.str.startswith('Blank')]  # kill blank columns
     df = df.loc[:, ~df.columns.str.startswith('Unnamed')]  # kill unnamed columns
     return df
 
 #
-# deck_df = xls_collector(part)
+# deck_df = xls_collector(element)
+# deck_df = xls_collector(element)
 # deck_df.to_csv(base_path+'deck_full.csv')
 # deck_df = pd.read_csv(base_path+'deck_full.csv')

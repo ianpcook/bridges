@@ -153,8 +153,8 @@ def make_map(map_df):
 
 
 def main():
-    FILE1_PATH = './Pennsylvania_Bridges.csv'
-    FILE2_PATH = './bridges.csv'
+    FILE1_PATH = './data/external/Pennsylvania_Bridges.csv'
+    FILE2_PATH = './data/external/bridges.csv'
     df = build_df(file1_path=FILE1_PATH, file2_path=FILE2_PATH)
     df, X_train, X_test, y_train, y_test = prep_split_df(df)
     y_test_pred, y_train_pred = run_model(X_train, X_test, y_train, y_test)
